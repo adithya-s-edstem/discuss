@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Prerequisites
+
+Create the db with
+
+```bash
+pnpm prisma migrate dev
+```
+
+Populate .env and .env.local
+
 ## Getting Started
 
 First, run the development server:
