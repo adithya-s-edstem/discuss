@@ -1,5 +1,4 @@
 page name     ,path                          ,data shown
-
 home page     ,/                             ,Many posts and many topics
 topic show    ,/topics/[slug]                ,Single topic and many posts
 create a post ,/topics/[slug]/posts/new      ,A single topic and many posts
