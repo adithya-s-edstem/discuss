@@ -16,7 +16,7 @@ export default function TopicCreateForm() {
       </PopoverTrigger>
       <PopoverContent>
         <form action={actions.createTopic}>
-          <div className="flex flex-col gape-4 p-4 w-80">
+          <div className="flex flex-col gap-4 p-4 w-80">
             <h3 className="text-lg">Create a Topic</h3>
             <Input label="name" labelPlacement="outside" placeholder="name" />
             <Textarea
