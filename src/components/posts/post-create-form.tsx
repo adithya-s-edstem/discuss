@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { FormEvent, startTransition, useActionState } from "react";
 import {
   Input,
   Button,
@@ -13,28 +13,47 @@ import * as actions from "@/actions";
 import FormButton from "@/components/common/form-button";
 
 export default function PostCreateForm() {
+  const [formState, action, isPending] = useActionState(actions.createPost, {
+    errors: {},
+  });
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    startTransition(() => action(formData));
+  };
+
   return (
     <Popover placement="left">
       <PopoverTrigger>
         <Button color="primary">Create a Post</Button>
       </PopoverTrigger>
       <PopoverContent>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4 p-4 w-80">
             <h3 className="text-lg">Create a Post</h3>
             <Input
+              isInvalid={!!formState.errors.title}
+              errorMessage={formState.errors.title?.join("")}
               name="title"
               label="Title"
               labelPlacement="outside"
               placeholder="Title"
             />
-            <Input
+            <Textarea
+              isInvalid={!!formState.errors.content}
+              errorMessage={formState.errors.content?.join("")}
               name="content"
               label="Content"
               labelPlacement="outside"
               placeholder="Content"
             />
-            <FormButton isPending={false}>Create Post</FormButton>
+            {formState.errors._form ? (
+              <div className="rounded border p-2 bg-red-200 border-red-400">
+                {formState.errors._form.join(",")}
+              </div>
+            ) : null}
+            <FormButton isPending={isPending}>Create Post</FormButton>
           </div>
         </form>
       </PopoverContent>
