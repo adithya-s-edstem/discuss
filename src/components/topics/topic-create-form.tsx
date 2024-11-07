@@ -13,7 +13,7 @@ import { useActionState } from "react";
 import FormButton from "../common/form-button";
 
 export default function TopicCreateForm() {
-  const [formState, action] = useActionState(actions.createTopic, {
+  const [formState, action, isPending] = useActionState(actions.createTopic, {
     errors: {},
   });
 
@@ -49,7 +49,7 @@ export default function TopicCreateForm() {
               </div>
             ) : null}
 
-            <FormButton>Save</FormButton>
+            <FormButton isPending={isPending}>Save</FormButton>
           </div>
         </form>
       </PopoverContent>
