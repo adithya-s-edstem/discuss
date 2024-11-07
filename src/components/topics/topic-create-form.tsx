@@ -9,7 +9,7 @@ import {
   PopoverContent,
 } from "@nextui-org/react";
 import * as actions from "@/actions";
-import { useActionState } from "react";
+import { FormEvent, startTransition, useActionState } from "react";
 import FormButton from "../common/form-button";
 
 export default function TopicCreateForm() {
@@ -17,13 +17,19 @@ export default function TopicCreateForm() {
     errors: {},
   });
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    startTransition(() => action(formData));
+  };
+
   return (
     <Popover placement="left">
       <PopoverTrigger>
         <Button color="primary">Create a Topic</Button>
       </PopoverTrigger>
       <PopoverContent>
-        <form action={action}>
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4 p-4 w-80">
             <h3 className="text-lg">Create a Topic</h3>
             <Input
